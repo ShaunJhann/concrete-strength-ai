@@ -72,12 +72,29 @@ elif page == "Concrete Strength Predictor":
 
             prediction = model.predict(input_data)[0]
 
-            st.success(
-                f"Estimated Concrete Compressive Strength: {prediction:.2f} MPa"
-            )
-            st.caption(
-                "This is an AI-based estimate. Verify results through laboratory testing."
-            )
+          st.success(
+    f"Estimated Concrete Compressive Strength: {prediction:.2f} MPa"
+)
+
+st.markdown("### Explanation of Result")
+
+st.write(
+    f"""
+    The predicted concrete compressive strength is {prediction:.2f} MPa.
+
+    This value represents the estimated ability of the concrete mixture
+    to withstand compressive loading based on the input materials,
+    curing age, and the trained Random Forest Regression model.
+
+    The result is an AI-generated estimate and should be validated
+    through laboratory testing before actual engineering use.
+    """
+)
+
+st.caption(
+    "This application is intended for educational and preliminary "
+    "estimation purposes only."
+)
 
         except FileNotFoundError:
             st.error(
