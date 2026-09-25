@@ -72,6 +72,52 @@ elif page == "Concrete Strength Predictor":
 
             prediction = model.predict(input_data)[0]
 
+            st.success(
+                f"Estimated Concrete Compressive Strength: {prediction:.2f} MPa"
+            )
+
+            st.markdown("### Explanation of Result")
+
+            st.write(
+                f"""
+                The predicted concrete compressive strength is {prediction:.2f} MPa.
+
+                This value represents the estimated ability of the concrete mixture
+                to withstand compressive loading based on the input materials,
+                curing age, and the trained Random Forest Regression model.
+
+                The result is an AI-generated estimate and should be validated
+                through laboratory testing before actual engineering use.
+                """
+            )
+
+            st.caption(
+                "This application is intended for educational and preliminary "
+                "estimation purposes only."
+            )
+
+        except FileNotFoundError:
+            st.error(
+                "Model file not found. Put the .pkl file in the same folder as app.py."
+            )
+        except Exception as error:
+            st.error(f"Error: {error}")
+        try:
+            model = load_model()
+
+            input_data = pd.DataFrame([{
+                "cement": cement,
+                "blast_furnace_slag": blast_furnace_slag,
+                "fly_ash": fly_ash,
+                "water": water,
+                "superplasticizer": superplasticizer,
+                "coarse_aggregate": coarse_aggregate,
+                "fine_aggregate": fine_aggregate,
+                "age": age
+            }])
+
+            prediction = model.predict(input_data)[0]
+
           st.success(
     f"Estimated Concrete Compressive Strength: {prediction:.2f} MPa"
 )
